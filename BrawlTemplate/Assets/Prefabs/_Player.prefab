@@ -93,11 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f259928c77e1244f907088a9f9bd18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 1
-  runSpeed: 2
+  walkSpeed: 1.5
+  runSpeed: 5
   gravity: -12
   jumpHeight: 2
-  airControlPercent: 0
+  airControlPercent: 0.744
   turnSmoothTime: 0.2
   speedSmoothTime: 0.1
   canMove: 0
