@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class CamFollow : MonoBehaviour
 {
-
+    // put insdie of the player game object
+    // it will detach from parent at start
     public Transform target;
     public float smoothSpeed = 10f;
     public Vector3 offset;
     public Vector3 velocity = Vector3.one;
 
+
+    public void Start()
+    {
+        
+        transform.parent = null;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {

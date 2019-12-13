@@ -53,9 +53,10 @@ public class Movement : MonoBehaviour
     private float jumpTimeCounter;
     public float jumpTime = 1f;
     private bool isJumping;
-
+    public float AnimSpeed = 1f;
     void Start()
     {
+
         canMove = true;
         //   AnimController.GetComponent<AnimationController>();
         //animator = GetComponentInChildren<Animator>();
@@ -65,6 +66,7 @@ public class Movement : MonoBehaviour
         //controller = gameObj<CharacterController>();
         //  animator.SetBool("Aim", false);
 
+        animator.speed = AnimSpeed;
         Cursor.lockState = CursorLockMode.Locked;
     }
 

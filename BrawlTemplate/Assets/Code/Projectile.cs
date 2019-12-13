@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     public float speed = 60f;
     public float lifeTime = 0.5f;
     public float distance = 0.5f;
+    public float Damage = 10f;
     public LayerMask whatIsSolid;
 
     public GameObject destroyEffect;
@@ -42,6 +43,9 @@ public class Projectile : MonoBehaviour
             if (collision.collider.CompareTag("Player"))
             {
                 Debug.Log("Enemy Must take damage!");
+                Vector3 direction = collision.transform.position - transform.position;
+                direction.y = 0;
+                collision.gameObject.GetComponent<PlayerStats>().TakeDamage(Damage, direction);
             }
 
             DestroyProjectile();

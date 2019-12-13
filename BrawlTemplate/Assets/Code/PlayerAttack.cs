@@ -49,11 +49,12 @@ public class PlayerAttack : MonoBehaviour
             {
                 //anim.speed = AnimationSpeed;
                 anim.SetTrigger("Attack");
-                timeBtwAttack = startTimeBtwAttack;
-                Invoke("DelayAndAttack", AttackDelayTime);
+               
+                //Invoke("DelayAndAttack", AttackDelayTime);
+                DelayAndAttack();
             }
 
-         
+            timeBtwAttack = startTimeBtwAttack;
         }
         else
         {
@@ -72,18 +73,27 @@ public class PlayerAttack : MonoBehaviour
         Collider[] enemiesToDamage = Physics.OverlapSphere(attackPos.position, attackRange, whatIsEnemies);
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
-            if (enemiesToDamage[i].gameObject.tag == "Player")
+            if (enemiesToDamage[i].gameObject.tag == "Player" )
             {
-                enemiesToDamage[i].GetComponent<PlayerStats>().TakeDamage(damage,transform.position);
+                if (enemiesToDamage[i].gameObject == transform.gameObject)
+                {
+                    // do nothing
+                }
+                else
+                {
+                    Vector3 direction = enemiesToDamage[i].transform.position - transform.position;
+                    direction.y = 0;
+                    enemiesToDamage[i].GetComponent<PlayerStats>().TakeDamage(damage, direction);
 
 
-                // Add Force to enemy when hit
-             //   if (enemiesToDamage[i].gameObject.GetComponent<Rigidbody>() != null && enemiesToDamage[i].gameObject.GetComponent<PlayerStats>().Invencible == false)
-              //  {
-                 //   Vector3 direction = enemiesToDamage[i].transform.position - transform.position;
-                  //  direction.y = 0;
-                 //   enemiesToDamage[i].gameObject.GetComponent<Rigidbody>().AddForce(direction.normalized * enemyKnockBackStrenght, ForceMode.Impulse);
-               // }
+                    // Add Force to enemy when hit
+                    //   if (enemiesToDamage[i].gameObject.GetComponent<Rigidbody>() != null && enemiesToDamage[i].gameObject.GetComponent<PlayerStats>().Invencible == false)
+                    //  {
+                    //   Vector3 direction = enemiesToDamage[i].transform.position - transform.position;
+                    //  direction.y = 0;
+                    //   enemiesToDamage[i].gameObject.GetComponent<Rigidbody>().AddForce(direction.normalized * enemyKnockBackStrenght, ForceMode.Impulse);
+                    // }
+                }
             }
             else if (enemiesToDamage[i].gameObject.tag == "Pushable")
             {
