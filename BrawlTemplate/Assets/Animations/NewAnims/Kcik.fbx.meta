@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: e8d0675828054334481f2cd3f3575fb0
+guid: 678628a0e0bee634c9db44de5a6c36ff
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
-      74: -203655887218126122
-    second: Attack
+      74: -4791504522942941401
+    second: Kick
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack
-      takeName: mixamo.com
+      name: Kick
+      takeName: Armature|Armature|mixamo.com|Layer0
       internalID: 0
       firstFrame: 0
-      lastFrame: 30
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

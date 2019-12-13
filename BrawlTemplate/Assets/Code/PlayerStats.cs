@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour
 
 
     // Invencibility
-    public Renderer playerRenderer;
+     Renderer playerRenderer;
     private float flashCounter;
     public float flashLength = 0.1f;
 

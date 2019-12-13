@@ -32,7 +32,7 @@ public class SimplePush : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rig = gameObject.GetComponent<Rigidbody>();
+        rig = gameObject.GetComponentInChildren<Rigidbody>();
     }
     public void MoveObject()
     {

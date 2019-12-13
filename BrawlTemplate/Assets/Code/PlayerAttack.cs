@@ -16,7 +16,7 @@ public class PlayerAttack : MonoBehaviour
     // add layer called Enemy to  pushables and enemies
     // also add the tag Enemy to enimes an Pushable to pushables
 
-    public KeyCode attackButton = KeyCode.A;
+    public KeyCode attackButton = KeyCode.Mouse0;
     private float timeBtwAttack = 0.3f;
     public float startTimeBtwAttack;
     public float AttackDelayTime = 0.3f;
@@ -26,9 +26,14 @@ public class PlayerAttack : MonoBehaviour
     public int damage = 10;
     Animator anim;
 
+    public GameObject HitEffect;
+
     public float AnimationSpeed = 0.3f;
 
     public float enemyKnockBackStrenght = 4f;
+
+
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +49,11 @@ public class PlayerAttack : MonoBehaviour
             {
                 //anim.speed = AnimationSpeed;
                 anim.SetTrigger("Attack");
+                timeBtwAttack = startTimeBtwAttack;
                 Invoke("DelayAndAttack", AttackDelayTime);
             }
 
-            timeBtwAttack = startTimeBtwAttack;
+         
         }
         else
         {
@@ -59,6 +65,10 @@ public class PlayerAttack : MonoBehaviour
     // properly time the attack to when it acctually hits the enemy
     public void DelayAndAttack()
     {
+
+        if (HitEffect != null)
+            Instantiate(HitEffect, attackPos.position, Quaternion.identity);
+
         Collider[] enemiesToDamage = Physics.OverlapSphere(attackPos.position, attackRange, whatIsEnemies);
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
