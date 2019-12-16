@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : MonoBehaviourPun
 {
     public int CoinItems;
     public float MaxPlayerHealth = 100f;
@@ -24,7 +25,7 @@ public class PlayerStats : MonoBehaviour
     public Vector3 respawnPoint;
     public GameObject DieEffect;
     public float respawnTime = 2.5f;
-
+    public MultipleTargetCamera cam;
     // Use this for initialization
     void Start()
     {
@@ -35,6 +36,11 @@ public class PlayerStats : MonoBehaviour
         health = MaxPlayerHealth;
         movement = FindObjectOfType<Movement>();
         playerRenderer = gameObject.GetComponentInChildren<Renderer>();
+        cam = FindObjectOfType<MultipleTargetCamera>();
+
+        //destroy the controller if the player is not controlled by me
+     //   if (!photonView.IsMine && GetComponent<Movement>() != null)
+        //    Destroy(GetComponent<Movement>());
     }
 
     // Update is called once per frame
@@ -100,6 +106,13 @@ public class PlayerStats : MonoBehaviour
         Invoke("Respawn", respawnTime);
         //Respawn();
         Debug.Log("Player Had Died");
+      foreach(Transform target in cam.Targets)
+        {
+            if(target.gameObject == transform.gameObject)
+            {
+                cam.Targets.Remove(target);
+            }
+        }
     }
 
     public void GainHealth(float healthAmount)
@@ -125,11 +138,27 @@ public class PlayerStats : MonoBehaviour
         playerRenderer.enabled = true;
         transform.position = respawnPoint;
         health = MaxPlayerHealth;
+        cam.Targets.Add(transform);
     }
 
     public void DelayMovement()
     {
 
         movement.canMove = true;
+    }
+
+    /// photon stuff
+    public static void RefreshInstance(ref PlayerStats player, PlayerStats Prefab)
+    {
+        var position = Vector3.zero;
+        var rotation  = Quaternion.identity;
+        if(player != null)
+        {
+            position = player.transform.position;
+            rotation = player.transform.rotation;
+            PhotonNetwork.Destroy(player.gameObject);
+        }
+
+        player = PhotonNetwork.Instantiate(Prefab.gameObject.name, position, rotation).GetComponent<PlayerStats>();
     }
 }

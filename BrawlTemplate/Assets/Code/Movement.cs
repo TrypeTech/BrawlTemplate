@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Movement : MonoBehaviour
+public class Movement : MonoBehaviourPun
 {
     public float walkSpeed = 0.5f;
 
@@ -54,6 +55,8 @@ public class Movement : MonoBehaviour
     public float jumpTime = 1f;
     private bool isJumping;
     public float AnimSpeed = 1f;
+
+
     void Start()
     {
 
@@ -72,16 +75,17 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+        
 
         if (canMove == false)
             return;
-
-
+        if (!photonView.IsMine)
+            return;
 
 
         // input
-      //  Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-      // changed
+        //  Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        // changed
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
         Vector2 inputDir = input.normalized;
         bool running = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.JoystickButton2);
@@ -116,6 +120,8 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0) && isJumping == false)
         {
+          
+                
             DoubleJump();
         }
         // animator

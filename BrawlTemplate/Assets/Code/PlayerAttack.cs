@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : MonoBehaviourPunCallbacks
 {
 
     // NOTe: Needed for to work
@@ -37,12 +38,16 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
+         anim = GetComponent<Animator>();
+      //  anim = gameObject.GetComponentInParent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine)
+            return;
+
         if (timeBtwAttack <= 0)
         {
             if (Input.GetKey(attackButton) || Input.GetKey(KeyCode.JoystickButton1))

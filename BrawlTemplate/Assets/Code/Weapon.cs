@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviourPunCallbacks
 {
     public float offset = -90;
 
@@ -25,9 +26,12 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         // Handles the Weapon rotation
-       // Vector3 difference = Camera.main.ScreenToViewportPoint(Input.mousePosition) - transform.position;
-      //  float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-       // transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
+        // Vector3 difference = Camera.main.ScreenToViewportPoint(Input.mousePosition) - transform.position;
+        //  float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        // transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
+
+        if (!photonView.IsMine)
+            return;
 
         // shoots bomb at Shoot position
         if (timeBtwShots <= 0)
